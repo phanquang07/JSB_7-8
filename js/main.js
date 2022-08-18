@@ -81,16 +81,43 @@ document.querySelector('#btn-even-num').onclick = findEvenNum
 
 // Đổi chỗ 2 vị trí trong mảng
 function changePlace() {
+  let arrNumCopy2 = []
+
   let p1 = Number(document.querySelector('#inputNum3').value)
   let p2 = Number(document.querySelector('#inputNum4').value)
+  let viTri1 = 0
+  let viTri2 = 0
+  let contents = ''
 
   for (let i = 0; i < arrNum.length; i++) {
-    if (arrNum[i] == p1 && arrNum[i] == p2) {
-      console.log('tim thay');
-    } else {
-      console.log('k tìm thấy');
+    arrNumCopy2.push(arrNum[i])
+  }
+
+  for (let i = 0; i < arrNumCopy2.length; i++) {
+    if (arrNumCopy2[i] === p1) {
+      viTri1 = i
+    } else if (arrNumCopy2[i] === p2) {
+      viTri2 = i
     }
   }
+
+  if (p1 === p2) {
+    alert('vị trí 1 trùng vị trí 2')
+  } else if (arrNumCopy2[viTri1] === p1 && arrNumCopy2[viTri2] === p2) {
+    let temp = arrNumCopy2[viTri1]
+    arrNumCopy2[viTri1] = arrNumCopy2[viTri2]
+    arrNumCopy2[viTri2] = temp
+    contents = `Mảng đã đổi: ${arrNumCopy2}`
+  } else if (arrNumCopy2[viTri1] !== p1 && arrNumCopy2[viTri2] !== p2) {
+    alert('không tìm thấy vị trí 1 và 2');
+  } else if (arrNumCopy2[viTri1] !== p1) {
+    alert('không tìm thấy vị trí 1')
+  } else if (arrNumCopy2[viTri2] !== p2) {
+    alert('không tìm thấy vị trí 2')
+  }
+  console.log(p1, p2);
+
+  document.querySelector('#changePlace').innerHTML = contents
 }
 document.querySelector('#btn-changePlace').onclick = changePlace
 
@@ -191,12 +218,12 @@ function compareNum() {
 
   if (countDuong > countAm) {
     contents = 'số dương > số âm'
-  } else if (countDuong < countAm ){
+  } else if (countDuong < countAm) {
     contents = 'số dương < số âm'
   } else {
     contents = 'số dương = số âm'
   }
 
-  document.querySelector('#compareNum').innerHTML = contents  
+  document.querySelector('#compareNum').innerHTML = contents
 }
 document.querySelector('#btn-compare').onclick = compareNum
